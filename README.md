@@ -4,7 +4,7 @@
 |---|---|---|---|
 | 1 | Lê Minh Thông | 24022835 | Nhóm trưởng |
 | 2 | Đỗ Anh Khoa | 24022805 | Thành viên |
-| 3 | Lê Văn C | 123458 | Thành viên |
+| 3 | Trịnh Văn Sơn | 24022829 | Thành viên |
 
 ## 2. Thông tin bài tập
 - **Sudoku:** Cho bảng Sudoku 9x9. Một số ô đã điền số. Dùng đệ quy + quay lui để điền đủ bảng.
