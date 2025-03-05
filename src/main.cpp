@@ -11,8 +11,7 @@ bool completeCell(int grid[9][9], int x, int y) {
     if (grid[y][x] != 0 && checkCell(grid, x, y)) return true;
     for (int i = 1; i <= 9; i++) {
         grid[y][x] = i;
-        //if (checkCell(grid, x, y)) {
-        if (checkCol(grid, x) && checkRow(grid, y)) {
+        if (checkCell(grid, x, y)) {
             cout << "Value " << i << " valid" << endl << endl;
             return true;
         }

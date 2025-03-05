@@ -42,12 +42,10 @@ bool checkCol(int grid[9][9], int col) {
         + y: Từ 0-8
 */
 bool checkCell(int grid[9][9], int x, int y) {
-    // for (int i = 0; i < 9; i++) {
-    //     for (int j = i + 1; j < 9; j++) {
-    //         if (grid[y][j] == grid[y][i]) return false;
-    //         if (grid[j][x] == grid[i][x]) return false;
-    //     }
-    // }
+    for (int i = 0; i < 9; i++) {
+        if (grid[y][i] == grid[y][x] && i != x) return false;
+        if (grid[i][x] == grid[y][x] && i != y) return false;
+    }
     return true;
 }
 
