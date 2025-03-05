@@ -7,7 +7,7 @@ using namespace std;
 // I accidentally wrote this section in English, sorry ;(
 
 /*
-    For debugging purposes: Displays available numbers in that row and column
+    Chỉ để debug, ko cần quan tâm đến
 */
 void completeCellDebug(int grid[9][9], int x, int y, int n) {
     int availR[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
@@ -31,38 +31,60 @@ void completeCellDebug(int grid[9][9], int x, int y, int n) {
 }
 
 /*
-    Recursive function: Completes a 9x9 sudoku puzzle, only 2 possibilities:
-    1. The function has reached the end of the grid 
-        => The grid has been completed 
+    Recursive function: Hoàn thiện bảng Sudoku 9x9, 
+    
+    Hàm có 2 đoạn:
+    - (I)  : Tìm kiếm ô trống:
+         + Nếu x >= 9 thì sẽ di chuyển sang hàng dưới
+         + Nếu y >= 9 thì đã đến cuối bảng
+           => Return true
+         + Nếu (x,y) ko trống (khác 0) thì di chuyển sang ô bên phải (x + 1)
+    - (II) : Tìm kiếm
+
+    Hàm chỉ có 2 trường hợp kết quả:
+    1. Hàm di chuyển đến cuối bảng (Ô (9,9))
+        => Bảng đã được hoàn thiện
         => Return true
-    2. Position (x, y) has no valid number
+    2. Tại điểm (x,y) ko có giá trị hợp lý
         => Return false
-        => Go back to previous to check other numbers
+        => Sẽ di chuyển về hàm trước
 */
 bool completeGrid(int grid[9][9], int x = 0, int y = 0) {
-    // If x >= 9 then move to the row below
+    // (I)
+    // Nếu x >= 9 thì sẽ di chuyển sang hàng dưới
     if (x >= 9) { 
-        x = 0;  // Goto start of row
-        y += 1; // Goto next row
+        x = 0;  // Trở về đầu hàng
+        y += 1; // Di chuyển đến hàng tiếp theo
     }
     
-    // If y >= 9 then function has reached end of grid, end function
+    // Nếu y >= 9 thì hàm đã đến cuối bảng, nên return true
     if (y >= 9) return true;
 
-    // If the current cell is occupied (!= 0) then go to the next cell
+    // Nếu ô hiện tại (x,y) khác 0 (nghĩa là không trống) thì sẽ di chuyển sang ô bên cạnh
     if (grid[y][x] != 0) return completeGrid(grid, x + 1, y);
 
-    // Check values 1~9
+    // (II)
+    // Nếu ô (x,y) hiện tại đang trống, thì thử thay giá trị từ 1~9 vào ô đó
     for (int i = 1; i <= 9; i++) {
         grid[y][x] = i;
         // completeCellDebug(grid, x, y, i); // Debugging
-        // If value <i> is valid
+        // Nếu giá trị <i> hợp lý, sẽ kiểm tra tiếp ô bên cạnh
         if (checkCell(grid, x, y)) { 
-            // If yes, complete the next cell: See above
+            /*
+                Nếu hàm completeGrid trả true
+                > Thì nghĩa là hàm đó (hoặc các hàm từ nó) đã đến cuối bảng
+                > Nghĩa là bảng đã được hoàn thiện
+                > Trả true
+            */
             if (completeGrid(grid, x + 1, y)) return true;
         }
+        // Nếu giá trị <i> ko hợp lý thì xóa giá trị đấy khỏi ô (x,y)
         grid[y][x] = 0;
     }
+    /* 
+        Nếu không giá trị nào từ 1~9 hợp lý tại ô (x,y), trả false để di chuyển sang hàm trước đó
+        > Hoặc nếu là hàm đầu tiên thì nghĩa là bảng không thể giải được
+    */
     return false;
 }
 
@@ -101,7 +123,8 @@ int main() {
     };
     cout << "Input:" << endl;
     printGrid(grid);
-    completeGrid(grid, 0, 0);
+    bool result = completeGrid(grid, 0, 0);
     cout << endl << "Final result:" << endl;
-    printGrid(grid);
+    if (result) printGrid(grid);
+    else cout << "Cannot solve grid";
 }

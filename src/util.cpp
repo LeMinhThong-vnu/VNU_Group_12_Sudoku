@@ -3,6 +3,91 @@
 using namespace std;
 
 /*
+    Kiểm tra nếu ô 3x3 chứa điểm (x,y) có hợp lý không (Kiểm tra xem nếu ô 3x3 có lặp giá trị nào)
+*/
+bool checkSubGrid(int grid[9][9], int x, int y) {
+    /*
+        Tìm (x,y) thuộc ô 3x3 nào 
+        (VD: Tọa độ (1,4) thuộc ô 3x3 (0,1))
+
+        | - - - | - - - | - - - |
+        | - - - | - - - | - - - |
+        | - - - | - - - | - - - |
+        -------------------------
+        | - - - | - - - | - - - |
+        | - X - | - - - | - - - |
+        | - - - | - - - | - - - |
+        -------------------------
+        | - - - | - - - | - - - |
+        | - - - | - - - | - - - |
+        | - - - | - - - | - - - |
+    */
+    int gx = x / 3; // 0~2
+    int gy = y / 3; // 0~2
+
+    /*
+        Mảng <available>: Mảng chứa các giá trị đã tồn tại trong ô 3x3
+    */
+    int available[9] = { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+    
+    // Tìm kiếm ô nào lặp
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 3; j++) {
+            int val = grid[gx * 3 + i][gy * 3 + j]; // Lấy giá trị trong ô 3x3
+            if (val == 0) continue; // Nếu giá trị đó = 0 thì bỏ qua
+            /*
+                Nếu giá trị đó khác 0
+                => Kiểm tra vị trí (giá trị ô đó - 1) trong mảng <available>:
+                   + Nếu khác 0 
+                     => Đã tồn tại giá trị đó trong ô 3x3
+                     => return false
+                   + Nếu bằng 0
+                     => Thêm số đó vào trong mảng <available>
+
+                VD:
+                   - Ô có giá trị 3
+                   > Kiểm tra nếu tại vị trí (3 - 1) có phải 0 ko:
+                     > Có? 
+                       => Giá trị được cho vào mảng <available>, nếu trong tương lai hàm tìm được số 3 khác thì sẽ return false
+                     > Không?
+                       => Giá trị đã tồn tại trong ô 3x3, return false
+            */
+            if (available[val - 1] == 0) {
+                available[val - 1] = val;
+            }
+            else {
+                return false;
+            }
+        }
+    }
+    return true;
+}
+
+/*
+    Kiểm tra xem nếu trong cột <x> và hàng <y> có chứa số lặp ko
+
+    @param
+        + x: Từ 0-8
+        + y: Từ 0-8
+*/
+bool checkCell(int grid[9][9], int x, int y) {
+    for (int i = 0; i < 9; i++) {
+        // Xét các ô trong hàng <y>
+        if (grid[y][i] == grid[y][x] && i != x) return false;
+        // Xét các ô trong cột <x>
+        if (grid[i][x] == grid[y][x] && i != y) return false;
+    }
+    // Kiểm tra nếu ô 3x3 chứa điểm (x,y) có hợp lý
+    return checkSubGrid(grid, x, y);
+}
+
+/*
+
+    LƯU Ý: Các hàm từ điểm này là chưa có ứng dụng cụ thể nào trong code chính, có thể sẽ ứng dụng được để tối ưu hóa nhưng chưa implement.
+
+*/
+
+/*
     Kiểm tra xem nếu trong hàng <row> có chứa số lặp ko
 
     @param
@@ -32,43 +117,6 @@ bool checkCol(int grid[9][9], int col) {
         }
     }
     return true;
-}
-
-/*
-    Kiểm tra nếu ô 3x3 chứa điểm (x,y) có hợp lý không
-*/
-bool checkSubGrid(int grid[9][9], int x, int y) {
-    int gx = x / 3; // 0~2
-    int gy = y / 3; // 0~2
-    int available[9] = { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-    for (int i = 0; i < 3; i++) {
-        for (int j = 0; j < 3; j++) {
-            int val = grid[gx * 3 + i][gy * 3 + j];
-            if (val == 0) continue;
-            if (available[val - 1] == 0) {
-                available[val - 1] = val;
-            }
-            else {
-                return false;
-            }
-        }
-    }
-    return true;
-}
-
-/*
-    Kiểm tra xem nếu trong cột <x> và hàng <y> có chứa số lặp ko (CHƯA SỬA XONG, TẠM THỜI DÙNG checkCol() && checkRow() ĐỂ KIỂM TRA)
-
-    @param
-        + x: Từ 0-8
-        + y: Từ 0-8
-*/
-bool checkCell(int grid[9][9], int x, int y) {
-    for (int i = 0; i < 9; i++) {
-        if (grid[y][i] == grid[y][x] && i != x) return false;
-        if (grid[i][x] == grid[y][x] && i != y) return false;
-    }
-    return checkSubGrid(grid, x, y);
 }
 
 /*
