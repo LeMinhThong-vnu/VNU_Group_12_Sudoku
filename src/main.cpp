@@ -4,8 +4,6 @@
 #include "util.h"
 using namespace std;
 
-// I accidentally wrote this section in English, sorry ;(
-
 /*
     Chỉ để debug, ko cần quan tâm đến
 */
