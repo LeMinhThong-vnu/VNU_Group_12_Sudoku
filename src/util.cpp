@@ -35,6 +35,28 @@ bool checkCol(int grid[9][9], int col) {
 }
 
 /*
+    Kiểm tra nếu ô 3x3 chứa điểm (x,y) có hợp lý không
+*/
+bool checkSubGrid(int grid[9][9], int x, int y) {
+    int gx = x / 3; // 0~2
+    int gy = y / 3; // 0~2
+    int available[9] = { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 3; j++) {
+            int val = grid[gx * 3 + i][gy * 3 + j];
+            if (val == 0) continue;
+            if (available[val - 1] == 0) {
+                available[val - 1] = val;
+            }
+            else {
+                return false;
+            }
+        }
+    }
+    return true;
+}
+
+/*
     Kiểm tra xem nếu trong cột <x> và hàng <y> có chứa số lặp ko (CHƯA SỬA XONG, TẠM THỜI DÙNG checkCol() && checkRow() ĐỂ KIỂM TRA)
 
     @param
@@ -46,7 +68,7 @@ bool checkCell(int grid[9][9], int x, int y) {
         if (grid[y][i] == grid[y][x] && i != x) return false;
         if (grid[i][x] == grid[y][x] && i != y) return false;
     }
-    return true;
+    return checkSubGrid(grid, x, y);
 }
 
 /*

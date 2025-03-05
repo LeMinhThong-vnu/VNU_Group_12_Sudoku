@@ -13,3 +13,5 @@ void printGrid(int grid[9][9]);
 void getAvailableRow(int grid[9][9], int row, int* available);
 
 void getAvailableCol(int grid[9][9], int col, int* available);
+
+bool checkSubGrid(int grid[9][9], int x, int y);
