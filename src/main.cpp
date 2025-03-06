@@ -87,6 +87,8 @@ bool completeGrid(int grid[9][9], int x = 0, int y = 0) {
 }
 
 int main() {
+    int grid[9][9];
+    /* 
     int grid[9][9] = {
         // VD1:
         // { 0, 6, 9, 0, 5, 0, 3, 0, 0 } ,
@@ -119,8 +121,17 @@ int main() {
         // { 6, 1, 8, 7, 0, 2, 4, 9, 3 } ,
         // { 0, 0, 0, 0, 8, 0, 0, 1, 0 }
     };
-    cout << "Input:" << endl;
-    printGrid(grid);
+    */
+
+    cout << "Input grid (9x9):\n(0 is a blank space)" << endl;
+    for (int i = 0; i < 9; i++) {
+        for (int j = 0; j < 9; j++) {
+            int temp;
+            cin >> temp;
+            grid[i][j] = temp;
+        }
+    }
+
     bool result = completeGrid(grid, 0, 0);
     cout << endl << "Final result:" << endl;
     if (result) printGrid(grid);
