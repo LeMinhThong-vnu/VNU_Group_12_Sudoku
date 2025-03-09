@@ -41,8 +41,15 @@ Hướng giải quyết cơ bản là theo các bước sau:
     
     **TH3:** Nếu không giá trị nào hợp lý thì sẽ trả giá trị **`false`**; Nếu đây là hàm gọi đầu tiên, có nghĩa là bảng không có cách giải
 
-## 4. Ví dụ
-### *4.1 VD1:*
+## 4. Ưu điểm - Ngược điểm
+
+| Ưu điểm | Ngược điểm |
+|---|---|
+| - **Đơn giản:** Code sử dụng thuật toán đệ quy đơn giản để giải quyết bài toán Sudoku. Cách tiếp cận này dễ hiểu và dễ triển khai. | - **Hiệu suất thấp:** Phương pháp này sử dụng đệ quy và kiểm tra tất cả các giá trị có thể, dẫn đến thời gian xử lý lâu đặc biệt là với các bảng có nhiều ô trống. |
+| - **Sự hiệu quả:** Hàm có thể giải quyết mọi bảng Sudoku hợp lệ bằng cách kiểm tra tất cả các khả năng. | - **Dễ gây lỗi stack overflow:** Với các bảng Sudoku lớn hoặc phức tạp, hàm đệ quy có thể gây ra stack overflow do độ sâu của đệ quy quá lớn. |
+
+## 5. Ví dụ
+### *5.1 VD1:*
 + *Input:*
 ```
 0  0  0  2  6  0  7  0  1
@@ -67,7 +74,7 @@ Hướng giải quyết cơ bản là theo các bước sau:
 2  4  8  9  5  7  1  3  6
 7  6  3  4  1  8  2  5  9
 ```
-### *4.2 VD2:*
+### *5.2 VD2:*
 + *Input:*
 ```
 0  0  0  2  6  0  7  0  1
@@ -92,7 +99,7 @@ Hướng giải quyết cơ bản là theo các bước sau:
 2  4  8  9  5  7  1  3  6
 7  6  3  4  1  8  2  5  9
 ```
-### *4.3 VD3:*
+### *5.3 VD3:*
 + *Input:*
 ```c++
 // Ô (0,0) không hợp lý
@@ -111,7 +118,7 @@ Hướng giải quyết cơ bản là theo các bước sau:
 Cannot solve grid
 ```
 
-## 5. Các hàm
+## 6. Các hàm
 
 ### `bool checkCell(int grid[9][9], int x = 0, int y = 0)`
 
@@ -155,5 +162,5 @@ Cannot solve grid
 1. Nếu là hàm gọi đầu tiên; **`true`** nghĩa là bảng đã hoàn thiện; **`false`** nghĩa là bảng không thể giải được.
 2. Nếu là hàm được gọi đệ quy; **`true`** nghĩa là bảng đã hoàn thiện; **`false`** nghĩa là cần thử một giá trị khác ở ô trước nào đó.
 
-## 6. Source Code
+## 7. Source Code
 [*Link*](https://github.com/LeMinhThong-vnu/VNU_Group_12_Sudoku/tree/main/src)
