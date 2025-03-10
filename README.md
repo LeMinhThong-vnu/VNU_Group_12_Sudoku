@@ -162,5 +162,10 @@ Cannot solve grid
 1. Nếu là hàm gọi đầu tiên; **`true`** nghĩa là bảng đã hoàn thiện; **`false`** nghĩa là bảng không thể giải được.
 2. Nếu là hàm được gọi đệ quy; **`true`** nghĩa là bảng đã hoàn thiện; **`false`** nghĩa là cần thử một giá trị khác ở ô trước nào đó.
 
+## 7. Video giới thiệu
+
+[![Video](https://i.ytimg.com/vi/-H_QhrTp1lM/hqdefault.jpg?sqp=-oaymwFBCNACELwBSFryq4qpAzMIARUAAIhCGAHYAQHiAQoIGBACGAY4AUAB8AEB-AGKCIAC0AWKAgwIABABGGUgZShlMA8=&rs=AOn4CLDw54UPVGuG-kMrBgkmvzmuysqhGQ)](
+https://youtu.be/-H_QhrTp1lM?si=MshJOAM3nO-gPqOx)
+
 ## 7. Source Code
 [*Link*](https://github.com/LeMinhThong-vnu/VNU_Group_12_Sudoku/tree/main/src)
